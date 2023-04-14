@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
+  "bin": "app.js",
+  "pkg": {
+    "assets": [
+      "public/**/*",
+      "views/**/*",
+      "react/**/*",
+      "node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node",
+      "node_modules/os-service/build/Release/service.node",
+      "node_modules/sqlite3/lib/binding/napi-v6-win32-unknown-x64/node_sqlite3.node"
+    ]
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.8",
+    "express": "~4.16.1",
+    "minimist": "^1.2.7",
+    "os-service": "^2.2.0",
+    "sqlite3": "^5.1.1"
+  }
+}

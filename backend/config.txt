@@ -1,0 +1,1 @@
+Some config info stored in a txt file.

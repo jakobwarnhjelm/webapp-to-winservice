@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+  <?define processArgs="" ?>
+  <Product Name='WebappToMsi' 
+    Id='d133ef42-d56e-41fe-91f4-8752cb76d1f0' 
+    UpgradeCode='861a9732-6e95-477e-ad22-be314e320dd8' 
+    Language='1033' Codepage='1252' Version='0.1.0' Manufacturer='WebappToMsi'
+  >
+
+    <Package Id='*' Keywords='Installer' Description="WebappToMsi installer" 
+      Comments='WebappToMsi demo release' 
+      Manufacturer='WebappToMsi' InstallerVersion='100' Languages='1033' 
+      Compressed='yes' SummaryCodepage='1252' 
+    />
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+        <Directory Id='INSTALLDIR' Name='WebappToMsi'>
+            <Component Id='backend' Guid='f314f307-740f-4384-a0b3-7840299b636e'>
+              <File Id='backendEXE' Name='webapp-backend-win.exe' DiskId='1' Source='.\webapp-backend-win.exe' KeyPath='yes'/>
+              <ServiceInstall Id="ServiceInstallerBackend" Type="ownProcess" Name="WebappToMsiService" Arguments=' --cwd="[INSTALLDIR]"' 
+                  DisplayName="WebappToMsiService" 
+                  Description="Make your webapp possible to install for enterprise IT" Start="auto" Account="LocalSystem" ErrorControl="normal" 
+                />
+
+
+              <!-- Use the <ServiceControl below if you want to autostart the service after install -->
+              <!-- <ServiceControl Id="WebappToMsiControl" Name="WebappToMsiBackend" Start="install" Stop="both" Remove='uninstall'/> -->
+
+              <!-- Use the <ServiceControl below if you don't want to autostart the service after install -->
+              <ServiceControl Id="WebappToMsiControl" Name="WebappToMsiBackend" Stop="both" Remove='uninstall'/>
+              
+            </Component>
+
+            <Component Id="config_file" Guid="1d566971-e8e2-4c4c-b5f7-a47db98e0e0e">
+              <File Id='config_file_id' Name='config.txt' DiskId='1' Source='.\config.txt' KeyPath='no' />
+            </Component>            
+
+            <Directory Id="license_dir" Name="license">
+                <Component Id="license_file" Guid="900090e0-def6-11ea-87d0-0242ac130003">
+                  <File Id='license_file_id' Name='LICENSES.txt' DiskId='1' Source='.\LICENSES.txt' KeyPath='no' />
+                </Component>
+            </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id='Complete' Title='WebappToMsi' Description='The complete package.' Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
+      <Feature Id='MainProgram' Title='Program' Description='The main executable.' Level='1'>
+        <ComponentRef Id='backend' />
+        <ComponentRef Id='config_file' />
+        <ComponentRef Id='license_file' />
+      </Feature>
+    </Feature>
+    
+    <WixVariable Id="WixUILicenseRtf" Value="eula.rtf" />
+
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+  </Product>
+</Wix>
