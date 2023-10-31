@@ -14,10 +14,12 @@ One motivation is enterprise IT environemnts where there might be only Windows s
 - Windows (necessary for the `.msi` installer)
 - Assumption: Python or Visual Studio is not installed previously
 - Node.js (use 18.x , there are some incompatibilities with Node.js 20)
+  - Check https://nodejs.org/en/about/previous-releases for download links
   - Skip "Tools for native modules", we will install it manually instead.
   - Test that `node` and `npm` commands are available in a termninal
-  - When the ordnariy Node.js -installation is finished. Install node-gyp dependencies according to instructions on https://github.com/nodejs/node-gyp#on-windows . This will include a Python environment and Visual Studio build tools.
-    - Regarding Python. Use Python 3.11 until https://github.com/nodejs/node-gyp/issues/2869 is released.
+  - When the ordnariy Node.js -installation is finished. Install node-gyp dependencies. The official instructions instructions on https://github.com/nodejs/node-gyp#on-windows are a bit vague. Install instead as below:
+    - Install Vs Build tools https://aka.ms/vs/16/release/vs_buildtools.exe. Source: https://stackoverflow.com/a/70516326 .
+    - Install Python 3.11 from https://www.python.org/downloads/ (because of https://github.com/nodejs/node-gyp/issues/2869 )
 - WiX toolset 3.11 https://github.com/wixtoolset/wix3/releases/tag/wix3112rtm 
   - Depends on .NET-framework 3.5. Install through Windows Server Manager or https://www.microsoft.com/en-US/download/details.aspx?id=21
   - Add C:\Program Files (x86)\WiX Toolset v3.11\bin to `PATH` after installing WiX toolset
