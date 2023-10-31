@@ -13,24 +13,28 @@ One motivation is enterprise IT environemnts where there might be only Windows s
 ## Get your build environment ready (tested on Windows Server 2019)
 - Windows (necessary for the `.msi` installer)
 - Assumption: Python or Visual Studio is not installed previously
+- Git: to clone this repo. https://git-scm.com/ 
 - Node.js (use 18.x , there are some incompatibilities with Node.js 20)
   - Check https://nodejs.org/en/about/previous-releases for download links
   - Skip "Tools for native modules", we will install it manually instead.
   - Test that `node` and `npm` commands are available in a termninal
-  - When the ordnariy Node.js -installation is finished. Install node-gyp dependencies. The official instructions instructions on https://github.com/nodejs/node-gyp#on-windows are a bit vague. Install instead as below:
-    - Install Vs Build tools https://aka.ms/vs/16/release/vs_buildtools.exe. Source: https://stackoverflow.com/a/70516326 .
-    - Install Python 3.11 from https://www.python.org/downloads/ (because of https://github.com/nodejs/node-gyp/issues/2869 )
+  - When the ordnariy Node.js -installation is finished. Install node-gyp dependencies. The official instructions instructions on https://github.com/nodejs/node-gyp#on-windows are a bit vague. Shortcut below:
+    - Install Vs Build tools https://aka.ms/vs/16/release/vs_buildtools.exe. Credit to https://stackoverflow.com/a/70516326 for the direct link. When the Visual Studio installer launches, install the complete workload for **Desktop development with C++**"**. It will occupy a few GB of space.
+    - Install Python 3.11 from https://www.python.org/downloads/ (because of https://github.com/nodejs/node-gyp/issues/2869). Run installer as admin.
 - WiX toolset 3.11 https://github.com/wixtoolset/wix3/releases/tag/wix3112rtm 
   - Depends on .NET-framework 3.5. Install through Windows Server Manager or https://www.microsoft.com/en-US/download/details.aspx?id=21
   - Add C:\Program Files (x86)\WiX Toolset v3.11\bin to `PATH` after installing WiX toolset
 
 
+  ## Building
+  - Open an elevated (admin) powershell terminal
+  - Clone this repository
+  - Navigate into the repository and run 
+
+
 
 //TODO infoga miljövariabler
 //TODO byggskriptet smäller inte snyggt
-  
-  It will launch a separate script after the standard Node.js installation. If this script fails, install Visual studio build tools 2019 manually (https://aka.ms/vs/16/release/vs_buildtools.exe). See here https://stackoverflow.com/a/70516326 for details.
-
 
  ## Disposition of code base
 The code base consists of 
