@@ -25,6 +25,15 @@ One motivation is enterprise IT environemnts where there might be only Windows s
   - Depends on .NET-framework 3.5. Install through Windows Server Manager or https://www.microsoft.com/en-US/download/details.aspx?id=21
   - Add C:\Program Files (x86)\WiX Toolset v3.11\bin to `PATH` after installing WiX toolset
 
+  ## Relevant entries to `PATH` after installation 
+- C:\Python311\Scripts\
+- C:\Python311\
+- C:\Program Files\Git\cmd
+- C:\Program Files (x86)\WiX Toolset v3.11\bin
+- C:\Program Files\nodejs\
+
+Visual Studio build tools are hard-references to their installation folder, thus not present in PATH.
+
 
   ## Building
   - Open an elevated (admin) powershell terminal
