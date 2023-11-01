@@ -62,7 +62,7 @@ Image above: How it looks when click the "working directory" link in the grey bl
   - Depends on .NET-framework 3.5. Install through Windows Server Manager or https://www.microsoft.com/en-US/download/details.aspx?id=21
   - Add C:\Program Files (x86)\WiX Toolset v3.11\bin to `PATH` after installing WiX toolset
 
-  ## Relevant entries to `PATH` after installation 
+## Relevant entries to `PATH` after installation 
 Verify that your system wide PATH variable on your Windows machine have entries similar to these:
 - C:\Python311\Scripts\
 - C:\Python311\
