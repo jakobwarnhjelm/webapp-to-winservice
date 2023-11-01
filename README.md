@@ -18,32 +18,31 @@ One motivation is enterprise IT environemnts where there might be only Windows s
   - Check https://nodejs.org/en/about/previous-releases for download links
   - Skip "Tools for native modules", we will install it manually instead.
   - Test that `node` and `npm` commands are available in a termninal
-  - When the ordnariy Node.js -installation is finished. Install node-gyp dependencies. The official instructions instructions on https://github.com/nodejs/node-gyp#on-windows are a bit vague. Shortcut below:
-    - Install Vs Build tools https://aka.ms/vs/16/release/vs_buildtools.exe. Credit to https://stackoverflow.com/a/70516326 for the direct link. When the Visual Studio installer launches, install the complete workload for **Desktop development with C++**"**. It will occupy a few GB of space.
-    - Install Python 3.11 from https://www.python.org/downloads/ (because of https://github.com/nodejs/node-gyp/issues/2869). Run installer as admin.
+  - When the ordinary Node.js -installation is finished. Install node-gyp dependencies. The official instructions instructions on https://github.com/nodejs/node-gyp#on-windows are a bit vague. Shortcut below:
+    - Install Vs Build tools https://aka.ms/vs/16/release/vs_buildtools.exe. Credit to https://stackoverflow.com/a/70516326 for the direct link. When the Visual Studio installer launches, install the complete workload for **Desktop development with C++**. It will occupy a few GB of space.
+    - Install Python 3.11 from https://www.python.org/downloads/ (because of https://github.com/nodejs/node-gyp/issues/2869 we have to avoid 3.12). Run installer as admin.
 - WiX toolset 3.11 https://github.com/wixtoolset/wix3/releases/tag/wix3112rtm 
   - Depends on .NET-framework 3.5. Install through Windows Server Manager or https://www.microsoft.com/en-US/download/details.aspx?id=21
   - Add C:\Program Files (x86)\WiX Toolset v3.11\bin to `PATH` after installing WiX toolset
 
   ## Relevant entries to `PATH` after installation 
+Verify that your system wide PATH variable on your Windows machine have entries similiar to these:
 - C:\Python311\Scripts\
 - C:\Python311\
 - C:\Program Files\Git\cmd
 - C:\Program Files (x86)\WiX Toolset v3.11\bin
 - C:\Program Files\nodejs\
 
-Visual Studio build tools are hard-references to their installation folder, thus not present in PATH.
+Visual Studio build tools are hard-references to their installation folder, thus not present in PATH. So if you have modified your Visual Studio installation,  you might need to configure node-gyp to properly detect the build tools.
 
 
   ## Building
   - Open an elevated (admin) powershell terminal
+    - Try also an non-elevated terminal, it might work without admin right. It depends on the node-gyp setup.
   - Clone this repository
-  - Navigate into the repository and run 
+  - Navigate into the repository and run `.\build.ps1`
 
-
-
-//TODO infoga miljövariabler
-//TODO byggskriptet smäller inte snyggt
+The build script will not exit if an underlying npm step fails. So you will have to check the console output for errors.
 
  ## Disposition of code base
 The code base consists of 
@@ -59,7 +58,7 @@ The other `.ps1`-files are called through `build.ps1` and serves the following p
 - build_backend.ps1: use `pkg` to package the the Node.js project as `.exe`-file (pkg is installed globally)
 - build_win_installer.ps1: Package binaries into `.msi`-installer that installs as Windows-service. Configured through `webapp_msi.wxs`.
 
-Recommendation: start by running each of the build scripts above separately and make them work (in the order above). The React parts (`build_frontend.ps1`) are not necessary, if outdated npm packages causes trouble. Conceptually it is just static html and .js files. The important part is the Node.js-app and how `os-service` interacts with Windows service manager.
+**Recommendation for troubleshooting**: start by running each of the build scripts above separately and make them work (in the order above). The React parts (`build_frontend.ps1`) are not necessary, if outdated npm packages causes trouble. Conceptually it is just static html and .js files. The important part is the Node.js-app and how `os-service` interacts with Windows service manager.
 
 Running in an elevated powershell terminal might be necessary, due to npm triggering node-gyp, trigger install of VisualStudio components.
 
@@ -71,8 +70,8 @@ The different folders at the root level are:
 
 
 ## After successful build
-When you have succeeded as far as building the backend part, there will be a binary `.\dist\webapp-backend-win.exe`. Start that exe-file from a terminal and go to `localhost:4000`. If it works, it will show a sample page with data from different layers of the app, which are more explained in the book. Remember to exit the process when finished.
+When you have succeeded as far as building the backend part, there will be a binary `.\dist\webapp-backend-win.exe`. Start that exe-file from a terminal and go to `http://localhost:4000`. If it works, it will show a sample page with data from different layers of the app, which are more explained in the book. Remember to exit the process when finished.
 
-Now try to run the `.msi`-installer you build in the last step `build_win_installer.msi` . Use default settings. After successful install, go to Windows services and start the new service "WebappToMsiService". When you open `localhost:4000` it should look the same as it did previously.
+Now try to run the `.msi`-installer you build in the last step `build_win_installer.msi` . Use default settings. After successful install, go to Windows services and start the new service "WebappToMsiService". When you open `http://localhost:4000` it should look the same as it did previously.
 
 Congrats! You have now managed to deploy a Node.js-app on Windows Server!
