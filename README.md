@@ -21,6 +21,32 @@ I have written up some more details about the app architecture in an Amazon self
 One motivation is enterprise IT environments where there might be only Windows server available, and on-premise being the only option due to security rules.
 
 
+## Screenshots 
+Behold the innate beauty of the running template app:
+
+![](/readme_img/webappwinservice_startpage.png "Start page")
+
+The image above displays the start page. The red/orange block is a React component, where the contents of the SQLite call are passed from backend to frontend and displayed with a javascript update of the DOM.
+
+The grey block are a few endpoints of the Node.js backend displayed in an iframe. The grey block is itself an EJS HTML template rendered by the backend Node.js app.
+
+The links have the following purpose:
+- Static file: render static html file bundled with Node.js-app
+- License file: show collected open source licenses (same text file included in both web app and and `.msi`)
+- JSON response from SQLite: same thing as in the orange block, without passing React first
+- Config file: demonstrate capability to read current content of text file on disk (hitting the endpoint triggers disk read)
+- Working directory: Demonstrate that Windows services are launched in `C:\Windows\system32` by default 
+
+Tip: search the codebase for keywords from the rendered page to see where they are in the folder structure.
+
+![](/readme_img/webappwinservice_config_file.png "View values from text file on disk")
+
+Image above: How it looks when click the "config file" link in the grey block.
+
+![](/readme_img/webappwinservice_workingdir.png "Managing to get out of the SYSTEM32-directory is essential when writing application specific files")
+
+Image above: How it looks when click the "working directory" link in the grey block.
+
 ## Get your build environment ready (tested on Windows Server 2019)
 - Windows (necessary for the `.msi` installer)
 - Assumption: Python or Visual Studio is not installed previously
@@ -36,7 +62,7 @@ One motivation is enterprise IT environments where there might be only Windows s
   - Depends on .NET-framework 3.5. Install through Windows Server Manager or https://www.microsoft.com/en-US/download/details.aspx?id=21
   - Add C:\Program Files (x86)\WiX Toolset v3.11\bin to `PATH` after installing WiX toolset
 
-  ## Relevant entries to `PATH` after installation 
+## Relevant entries to `PATH` after installation 
 Verify that your system wide PATH variable on your Windows machine have entries similar to these:
 - C:\Python311\Scripts\
 - C:\Python311\
@@ -86,3 +112,4 @@ When you have succeeded as far as building the backend part, there will be a bin
 Now try to run the `.msi`-installer you build in the last step `build_win_installer.msi` . Use default settings. After successful install, go to Windows services and start the new service "WebappToMsiService". When you open `http://localhost:4000` it should look the same as it did previously.
 
 Congrats! You have now managed to deploy a Node.js-app on Windows Server!
+
