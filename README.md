@@ -14,7 +14,7 @@ The reason the project exists in the first place is that one of my unfinished pr
 
 You will need to understand npm, Node.js, React and a tiny bit about Windows applications to read this codebase.
 
-I have written up some more details about the app architecture in an Amazon self-published book available through here The repository accompanies the book https://www.jakobwarnhjelm.com/webapp-to-winservice.
+I have written up some more details about the app architecture in an Amazon self-published book available through here The repository accompanies the book https://www.jakobwarnhjelm.com/deploy-a-modern-web-app-on-win-server/index.html.
 
 
 ## But why?
