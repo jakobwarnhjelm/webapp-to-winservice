@@ -1,12 +1,23 @@
 # webapp-to-winservice
-The repository accompanies the book https://www.jakobwarnhjelm.com/webapp-to-winservice 
-
-In-depth documentation is available in the book. This text mainly concerns how to build the project.
 
 ## What is this project?
 A template project to deploy a Node.js-app with a React frontend as a Windows service.
+The React app is served as static files by the Node.js backend. 
 
-But why?
+The Node.js backend interacts with the local filesystem, text files suitable for settings and also a SQLite database.
+
+It will output an `.msi` -file, that when installed sets up a Windows service. The app will accept start and stop signals from the Windows service manager.
+
+If you install e.g. PostgreSQL separately on the same machine, this template has the potential to create a complete enterprise on-premise app using a Node.js + React codebase.
+
+The reason the project exists in the first place is that one of my unfinished projects were supposed to be possible to install on-premise. It wasn't finished, much because it took so ridiculously long time to wrap Node.js inside a Windows service. Hopefully someone else can make use of it!
+
+You will need to understand npm, Node.js, React and a tiny bit about Windows applications to read this codebase.
+
+I have written up some more details about the app architecture in an Amazon self-published book available through here https://www.jakobwarnhjelm.com/webapp-to-winservice .
+
+
+## But why?
 One motivation is enterprise IT environments where there might be only Windows server available, and on-premise being the only option due to security rules.
 
 
@@ -63,10 +74,10 @@ The other `.ps1`-files are called through `build.ps1` and serves the following p
 Running in an elevated powershell terminal might be necessary, due to npm triggering node-gyp, trigger install of VisualStudio components.
 
 The different folders at the root level are:
-- .\backend: The Node.js-project
-- .\dist: Where the built files are copied
-- .\frontend: The React project
-- .\iis: Example files for running a reverse proxy using the IIS webserver (development purposes)
+- `.\backend`: The Node.js-project
+- `.\dist`: Where the built files are copied
+- `.\frontend`: The React project
+- `.\iis`: Example files for running a reverse proxy using the IIS webserver (development purposes)
 
 
 ## After successful build
