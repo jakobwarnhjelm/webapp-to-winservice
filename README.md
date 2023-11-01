@@ -1,13 +1,13 @@
 # webapp-to-winservice
 The repository accompanies the book https://www.jakobwarnhjelm.com/webapp-to-winservice 
 
-In-depth documentation is available in the book. This text mainly concerns how to buiild the project.
+In-depth documentation is available in the book. This text mainly concerns how to build the project.
 
 ## What is this project?
 A template project to deploy a Node.js-app with a React frontend as a Windows service.
 
 But why?
-One motivation is enterprise IT environemnts where there might be only Windows server available, and on-prem being the only option due to security rules.
+One motivation is enterprise IT environments where there might be only Windows server available, and on-premise being the only option due to security rules.
 
 
 ## Get your build environment ready (tested on Windows Server 2019)
@@ -17,7 +17,7 @@ One motivation is enterprise IT environemnts where there might be only Windows s
 - Node.js (use 18.x , there are some incompatibilities with Node.js 20)
   - Check https://nodejs.org/en/about/previous-releases for download links
   - Skip "Tools for native modules", we will install it manually instead.
-  - Test that `node` and `npm` commands are available in a termninal
+  - Test that `node` and `npm` commands are available in a terminal
   - When the ordinary Node.js -installation is finished. Install node-gyp dependencies. The official instructions instructions on https://github.com/nodejs/node-gyp#on-windows are a bit vague. Shortcut below:
     - Install Vs Build tools https://aka.ms/vs/16/release/vs_buildtools.exe. Credit to https://stackoverflow.com/a/70516326 for the direct link. When the Visual Studio installer launches, install the complete workload for **Desktop development with C++**. It will occupy a few GB of space.
     - Install Python 3.11 from https://www.python.org/downloads/ (because of https://github.com/nodejs/node-gyp/issues/2869 we have to avoid 3.12). Run installer as admin.
@@ -26,7 +26,7 @@ One motivation is enterprise IT environemnts where there might be only Windows s
   - Add C:\Program Files (x86)\WiX Toolset v3.11\bin to `PATH` after installing WiX toolset
 
   ## Relevant entries to `PATH` after installation 
-Verify that your system wide PATH variable on your Windows machine have entries similiar to these:
+Verify that your system wide PATH variable on your Windows machine have entries similar to these:
 - C:\Python311\Scripts\
 - C:\Python311\
 - C:\Program Files\Git\cmd
